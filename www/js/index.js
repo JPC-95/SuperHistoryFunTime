@@ -5,8 +5,8 @@ $("button.camera-control").click(function () {
 		var options = {
 		quality: 60,
 		destinationType: Camera.DestinationType.DATA_URL,
-		sourceType: 0;
-		encodingType: 0;
+		sourceType: 0,
+		encodingType: 0
 		};
 		navigator.camera.getPicture(getPhoto, null, options);
 	}
