@@ -6,7 +6,19 @@
     </head>
     <body>
         <h1>Camera Demo!</h1>
-
+		
+		<ul>
+			<li class="viewlink">Home</li>
+			<li class="viewlink">Capture</li>
+			<li class="viewlink">Edit</li>
+		</ul>
+		
+		<!--VIEW FOR SHOWING A LIST OF ALL PHOTOS-->
+		<div id="showall">
+		Here are all of these pictures that have been taken!
+		</div>
+		
+		<!--VIEW FOR CAPTURING NEW PHOTOS -->
         <div id="camera">
             <button class="camera-control">
                 Capture Photo
@@ -15,8 +27,14 @@
             <div style="text-align:center;margin:20px;">
                 <img id="camera-photo" src="" style="width:auto;height:120px;" />
             </div>
-			<div id="longitude"></div>
-			<div id="latitude"></div>
+			<div id="longitude">Longitude: 0</div>
+			<div id="latitude">Latitude: 0</div>
+			
+			Description:
+			<textarea id="description" cols="50" rows="5"></textarea>
+			
+			<button class="save">save</button>
+			
         </div>
 
         <div id="gis-location">GIS coordinates:</div>
@@ -24,7 +42,9 @@
 
         <div id="pics-taken"></div>
         <ul id="error-output" style="color: red"></ul>
-
+		<!--VIEW FOR EDITING OLD PICTURES-->
+		<div id="edit">edit</div>
+		
         <script src="phonegap.js"></script>
         <script src="js/modernizr.dev.min.js"></script>
         <script src="js/jquery-1.11.0.min.js"></script>

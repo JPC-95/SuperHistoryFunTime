@@ -1,4 +1,54 @@
 //This is the main JavaScript source for Super History Fun Time
+
+var photos = [];
+
+hideAllViews();
+
+function makePhotoEntry () {
+	var imageData = $('#camera-photo').attr('src').replace("data:image/jpeg;base64,", "");
+	var longitude = $('#longitude').html();
+	var latitude = $('#latitude').html();
+	var description = $('description').val();
+	
+	var photoEntry = {
+		"image" : imageData,
+		"longitude" : longitude,
+		"latitude" : latitude,
+		"description" : description
+	};
+	photo.push(photoEntry);
+}
+
+function daveAllPhotos () {
+	localStorage.clear();
+	localStorage["photos"] = JSON.stringify(photos);
+}
+
+$('button.save').click(function () {
+	 makePhotoEntry();
+	 saveAllPhotos();
+});
+
+function hideAllViews () {
+	$('#showall').hide();
+	$('#camera').hide();
+	$('#edit').hide();
+}
+
+
+$('li.viewlink').click(function () {
+	hideAllViews();
+	if($(this).html () == "Home") {
+		$('#showall').show();
+	} else if ($(this).html () == "Capture") {
+		$('#camera').show();
+	} else {
+		$('#edit').show();
+		}
+});
+
+
+
 $("button.camera-control").click(function () {
 	// Navigtor is PhoneGap access to hardware.
 	if (navigator.camera) {
