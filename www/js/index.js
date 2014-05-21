@@ -2,7 +2,23 @@
 
 var photos = [];
 
+loadAllPhotos();
 hideAllViews();
+
+displayAllPhotos();
+$('#showall').show();
+
+function displayAllPhotos(){
+//start here on tues,may 20
+}
+
+function loadAllPhotos (){
+	if (localStorage["photos'] !=null) {
+		photo = JSON.parse(localStorage["photos"]);
+	
+	}
+}
+
 
 function makePhotoEntry () {
 	var imageData = $('#camera-photo').attr('src').replace("data:image/jpeg;base64,", "");
@@ -19,9 +35,11 @@ function makePhotoEntry () {
 	photo.push(photoEntry);
 }
 
-function daveAllPhotos () {
+function saveAllPhotos () {
 	localStorage.clear();
 	localStorage["photos"] = JSON.stringify(photos);
+	if (navigator.notification) {
+		navigator.notification.alert("Photo has been saved", null, "Success!", "OK");
 }
 
 $('button.save').click(function () {
@@ -76,3 +94,34 @@ function getPosition (position) {
 	$("#longitude").html("Long: " + longitude);
 	$("#latitude").html("Lat: " + latitude);
 }
+function getPhoto (imageURI){
+	$('camer-photo').attr('src', imageURI);
+	window.resolveLocalFileSystemURI(imageURI, resolveonSuccess, resolveOnError);
+
+}
+
+function resolveOnError(error) {
+	//do nothing for now
+}
+	
+function resolveOnSuccess(entry) {
+	var now = new Date();
+	var timestamp = now.getTime();
+	var photoName = timestamp + ".jpg";
+	var photoFolder = "";
+	
+	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0,
+		function(fileSystem);
+			fileSystem.root.getDirectory(photoFolder,{create:true, exclusive: false},
+				function(directory)
+					entry.moveTo(directory, photoName, successMove, resolveOnError);
+				},
+				resolveOnError);
+			},
+			resolveOnError);
+}
+function successMove(entry) {
+	$'#image-path').html(entry.fullPath);
+}
+
+
