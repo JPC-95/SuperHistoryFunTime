@@ -8,6 +8,12 @@ hideAllViews();
 displayAllPhotos();
 $('#showall').show();
 
+function displayAllPhotos () {
+for (var i=0;1<photos.length; i++){
+	$('#showall ul').append("<li>" + photos[i]["imagepath"]
+	}
+}
+
 function displayAllPhotos(){
 //start here on tues,may 20
 }
@@ -21,13 +27,15 @@ function loadAllPhotos (){
 
 
 function makePhotoEntry () {
-	var imageData = $('#camera-photo').attr('src').replace("data:image/jpeg;base64,", "");
-	var longitude = $('#longitude').html();
-	var latitude = $('#latitude').html();
+	var imageData = $('#camera-photo').attr('src');
+	var imagepath = $('#image-path').html();
+	var longitude = $('#longitude').html().replace('Long: ', '');
+	var latitude = $('#latitude').html().replace('Lat: ', '');
 	var description = $('description').val();
 	
 	var photoEntry = {
 		"image" : imageData,
+		"imagepath": imagepath,
 		"longitude" : longitude,
 		"latitude" : latitude,
 		"description" : description
@@ -45,6 +53,8 @@ function saveAllPhotos () {
 $('button.save').click(function () {
 	 makePhotoEntry();
 	 saveAllPhotos();
+	 $('showall ul').children().remove();
+	 displayAllPhotos();
 });
 
 function hideAllViews () {
@@ -61,18 +71,43 @@ $('li.viewlink').click(function () {
 	} else if ($(this).html () == "Capture") {
 		$('#camera').show();
 	} else {
+		populateEditView();
 		$('#edit').show();
 		}
 });
 
+function populateEditView () {
+	var photoToEdit = photos[WHICH_PHOTO_???];
+		
+	$('#camera-photo-edit').attr('src', photoToEdit['imageData']);
+	$('image-path-edit').html(photoToEdit['imagepath']);
+	$('#longiture-edit').html(photoToEdit['longitude']);
+	$('#latitude-edit').html(photoToEdit['latitude']);
+	$('#description-edit').val(photoToEdit['description']);
+}
 
+$('#save-edit').click(function ();{
+	var imageData = $('#camera-photo-edit').attr('src');
+	var imagepath = $('#image-path-edit').html();
+	var longitude = $('#longitude-edit').html().replace('Long: ', '');
+	var latitude = $('#latitude-edit').html().replace('Lat: ', '');
+	var description = $('description-edit').val();
+	
+	photos[WHICH_PHOTO_???]['imageData'] = dataImage;
+	photos[WHICH_PHOTO_???]['imagepath'] = imagepath;
+	photos[WHICH_PHOTO_???]['longitude'] =longitude;
+	photos[WHICH_PHOTO_???]['latitude'] =latitude;
+	photos[WHICH_PHOTO_???]['description'] =description;
+	
+	saveAllPhotos();
+});
 
 $("button.camera-control").click(function () {
 	// Navigtor is PhoneGap access to hardware.
 	if (navigator.camera) {
 		var options = {
 		quality: 60,
-		destinationType: Camera.DestinationType.DATA_URL,
+		destinationType: Camera.DestinationType.FILE_URL,
 		sourceType: 1,
 		encodingType: 0
 		};
@@ -108,7 +143,7 @@ function resolveOnSuccess(entry) {
 	var now = new Date();
 	var timestamp = now.getTime();
 	var photoName = timestamp + ".jpg";
-	var photoFolder = "";
+	var photoFolder = "SuperHistoryFunTime";
 	
 	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0,
 		function(fileSystem);
@@ -121,7 +156,7 @@ function resolveOnSuccess(entry) {
 			resolveOnError);
 }
 function successMove(entry) {
-	$'#image-path').html(entry.fullPath);
+	$('#image-path').html(entry.fullPath);
 }
 
 

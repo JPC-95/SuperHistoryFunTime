@@ -26,6 +26,7 @@
  
             <div style="text-align:center;margin:20px;">
                 <img id="camera-photo" src="" style="width:auto;height:120px;" />
+				<span id="image-path"></span>
             </div>
 			<div id="longitude">Longitude: 0</div>
 			<div id="latitude">Latitude: 0</div>
@@ -44,6 +45,19 @@
         <ul id="error-output" style="color: red"></ul>
 		<!--VIEW FOR EDITING OLD PICTURES-->
 		<div id="edit">edit</div>
+		
+		 <div style="text-align:center;margin:20px;">
+                <img id="camera-photo-edit" src="" style="width:auto;height:120px;" />
+				<span id="image-path-edit"></span>
+            </div>
+			<div id="longitude-edit">Longitude: 0</div>
+			<div id="latitude-edit">Latitude: 0</div>
+			
+			Description:
+			<textarea id="description-edit" cols="50" rows="5"></textarea>
+			
+			<button class="save-edit">save</button>
+		</div>
 		
         <script src="phonegap.js"></script>
         <script src="js/modernizr.dev.min.js"></script>
